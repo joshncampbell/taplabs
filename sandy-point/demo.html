@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sandy Point — Browser Demo</title>
+  <style>
+    :root {
+      --bg: #eef8fb;
+      --panel: rgba(255,255,255,0.9);
+      --text: #0f1720;
+      --muted: #667085;
+      --line: #d9e8ee;
+      --sea: #36bfd0;
+      --deep: #0d6f8a;
+      --sand: #f2dfb8;
+      --coral: #ff7a59;
+      --shadow: 0 18px 40px rgba(15, 23, 32, 0.12);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, sans-serif;
+      color: var(--text);
+      background: radial-gradient(circle at top, rgba(54,191,208,0.16), transparent 30%), var(--bg);
+    }
+
+    .shell {
+      width: min(calc(100% - 24px), 1100px);
+      margin: 16px auto;
+      background: rgba(255,255,255,0.7);
+      border: 1px solid rgba(15,23,32,0.06);
+      border-radius: 28px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 22px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,0.82);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(180deg, #8ce7ea, #3fbfd1 55%, #14849d);
+      color: white;
+      font-size: 18px;
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 1fr 310px;
+    }
+
+    .game-wrap {
+      padding: 20px;
+      border-right: 1px solid var(--line);
+      background: linear-gradient(to bottom, rgba(255,255,255,0.35), rgba(255,255,255,0.7));
+    }
+
+    canvas {
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 24px;
+      background: linear-gradient(180deg, #9feaf1 0%, #56cfe1 45%, #1588a3 100%);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.35);
+    }
+
+    .side {
+      padding: 20px;
+      background: rgba(255,255,255,0.76);
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .card h2, .card h3 {
+      margin: 0 0 10px;
+      letter-spacing: -0.03em;
+    }
+
+    .card p, .card li {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+      background: linear-gradient(180deg, #f8fdfe, #f1fbfd);
+    }
+
+    .label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+      font-weight: 700;
+    }
+
+    .value {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .button-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 14px;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .primary {
+      background: linear-gradient(180deg, #45cdd1, #1590aa);
+      color: white;
+      box-shadow: 0 12px 24px rgba(20, 144, 170, 0.22);
+    }
+
+    .secondary {
+      background: #eff6f8;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .game-wrap {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <div class="brand">
+        <div class="icon">🐢</div>
+        <div>Sandy Point — browser demo</div>
+      </div>
+      <div class="controls">Space / click / tap to swim · Avoid coral towers and sharks</div>
+    </div>
+
+    <div class="layout">
+      <div class="game-wrap">
+        <canvas id="game" width="760" height="540" aria-label="Sandy Point game demo"></canvas>
+      </div>
+
+      <aside class="side">
+        <div class="card">
+          <h2>One-level prototype</h2>
+          <p>This is a simple browser-playable version of Sandy Point. The goal is to validate the feel, pacing, and theme before building the full app.</p>
+          <div class="button-row">
+            <button class="primary" id="startBtn">Start / restart</button>
+            <button class="secondary" id="pauseBtn">Pause</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Stats</h3>
+          <div class="stats">
+            <div class="stat">
+              <div class="label">Score</div>
+              <div class="value" id="scoreVal">0</div>
+            </div>
+            <div class="stat">
+              <div class="label">Best</div>
+              <div class="value" id="bestVal">0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>How to play</h3>
+          <ul>
+            <li>Click, tap, or press the spacebar to swim upward.</li>
+            <li>Drift through openings between coral formations.</li>
+            <li>Avoid the roaming shark near the end of the level.</li>
+            <li>Reach the finish marker to complete the demo level.</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('game');
+    const ctx = canvas.getContext('2d');
+    const scoreEl = document.getElementById('scoreVal');
+    const bestEl = document.getElementById('bestVal');
+    const startBtn = document.getElementById('startBtn');
+    const pauseBtn = document.getElementById('pauseBtn');
+
+    const W = canvas.width;
+    const H = canvas.height;
+    const ceilingY = 16;
+    const floorY = H - 56;
+
+    let best = 0;
+    let paused = false;
+    let lastTime = 0;
+    let state;
+
+    const turtleSvg = `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 140">
+        <g>
+          <path d="M36 79 Q76 130 118 84 Q95 80 77 64 Q58 64 36 79Z" fill="#6b93a5"/>
+          <path d="M22 73 Q38 104 60 71 Q45 67 35 58 Q27 60 22 73Z" fill="#5f8597"/>
+          <path d="M48 55 Q52 28 75 22 Q88 19 102 22 L156 31 Q183 36 194 51 Q201 60 195 71 Q186 85 161 89 L102 93 Q86 94 72 88 Q56 81 48 55Z" fill="#5b8192"/>
+          <path d="M68 52 L175 61" stroke="#87aabb" stroke-width="4" stroke-linecap="round" opacity="0.95"/>
+          <path d="M63 42 L170 51" stroke="#87aabb" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+          <path d="M62 63 L168 73" stroke="#87aabb" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+          <path d="M77 85 Q116 96 162 86" stroke="#87aabb" stroke-width="3" stroke-linecap="round" opacity="0.55"/>
+          <path d="M60 59 Q92 88 162 83 Q135 98 97 98 Q75 96 60 59Z" fill="#dfe8de" opacity="0.95"/>
+          <path d="M176 44 Q192 32 209 40 Q222 47 220 60 Q219 71 205 76 Q190 80 177 72 Q169 66 169 56 Q169 48 176 44Z" fill="#5b8192"/>
+          <circle cx="202" cy="54" r="2.4" fill="#24343e"/>
+          <circle cx="210" cy="57" r="2.1" fill="#24343e"/>
+          <g fill="#cfe0ea" opacity="0.75">
+            <ellipse cx="82" cy="40" rx="2.4" ry="1.7"/>
+            <ellipse cx="96" cy="35" rx="2.2" ry="1.5"/>
+            <ellipse cx="113" cy="40" rx="2.1" ry="1.6"/>
+            <ellipse cx="129" cy="37" rx="2.2" ry="1.5"/>
+            <ellipse cx="144" cy="41" rx="2.3" ry="1.6"/>
+            <ellipse cx="159" cy="45" rx="2.2" ry="1.5"/>
+            <ellipse cx="82" cy="56" rx="2.4" ry="1.7"/>
+            <ellipse cx="99" cy="52" rx="2.1" ry="1.5"/>
+            <ellipse cx="116" cy="57" rx="2.2" ry="1.5"/>
+            <ellipse cx="133" cy="54" rx="2.1" ry="1.5"/>
+            <ellipse cx="149" cy="58" rx="2.2" ry="1.5"/>
+            <ellipse cx="166" cy="62" rx="2.0" ry="1.4"/>
+            <ellipse cx="78" cy="72" rx="2.1" ry="1.5"/>
+            <ellipse cx="95" cy="69" rx="2.0" ry="1.4"/>
+            <ellipse cx="113" cy="74" rx="2.2" ry="1.5"/>
+            <ellipse cx="132" cy="71" rx="2.1" ry="1.4"/>
+            <ellipse cx="150" cy="76" rx="2.0" ry="1.4"/>
+          </g>
+        </g>
+      </svg>`;
+
+    const turtleImg = new Image();
+    turtleImg.onload = () => console.log('Turtle SVG loaded');
+    turtleImg.onerror = () => console.error('Turtle SVG failed to load');
+    turtleImg.src = '/sandy-point/Sandy.svg';
+
+    function buildObstacles() {
+      const list = [];
+      let x = 620;
+      const gapBase = 170;
+      for (let i = 0; i < 10; i++) {
+        const gap = gapBase - Math.min(i * 6, 42);
+        const topH = 70 + Math.random() * 180;
+        const bottomY = topH + gap;
+        const bottomH = floorY - bottomY;
+        list.push({ x, w: 82, topH, bottomY, bottomH, passed: false });
+        x += 300 + Math.random() * 60;
+      }
+      return list;
+    }
+
+    function buildBubbles() {
+      return Array.from({ length: 18 }, () => ({
+        x: Math.random() * W,
+        y: Math.random() * H,
+        r: 3 + Math.random() * 9,
+        speed: 0.4 + Math.random() * 1.1,
+      }));
+    }
+
+    function resetGame() {
+      state = {
+        running: false,
+        won: false,
+        gameOver: false,
+        distance: 0,
+        finishDistance: 4200,
+        score: 0,
+        turtle: { x: 190, y: H / 2, vy: 0, r: 20, angle: 0 },
+        obstacles: buildObstacles(),
+        shark: { active: false, x: W + 120, y: H * 0.55, w: 130, h: 42, speed: 3.2, bob: 0 },
+        bubbles: buildBubbles(),
+      };
+      updateScore();
+    }
+
+    function startGame() {
+      resetGame();
+      state.running = true;
+      paused = false;
+      pauseBtn.textContent = 'Pause';
+    }
+
+    function flap() {
+      if (!state.running && !state.gameOver && !state.won) state.running = true;
+      if (state.gameOver || state.won || paused) return;
+      state.turtle.vy = -6.8;
+    }
+
+    function updateScore() {
+      scoreEl.textContent = state.score;
+      bestEl.textContent = best;
+    }
+
+    function collideCircleRect(cx, cy, cr, rx, ry, rw, rh) {
+      const closestX = Math.max(rx, Math.min(cx, rx + rw));
+      const closestY = Math.max(ry, Math.min(cy, ry + rh));
+      const dx = cx - closestX;
+      const dy = cy - closestY;
+      return dx * dx + dy * dy < cr * cr;
+    }
+
+    function update(dt) {
+      if (!state.running || paused || state.gameOver || state.won) return;
+
+      state.distance += 2.4 * dt;
+      state.turtle.vy += 0.36 * dt;
+      state.turtle.y += state.turtle.vy * dt;
+      state.turtle.angle = Math.max(-0.45, Math.min(0.65, state.turtle.vy * 0.06));
+
+      state.bubbles.forEach((b) => {
+        b.x -= b.speed * dt;
+        b.y -= 0.18 * dt;
+        if (b.x < -20) b.x = W + Math.random() * 80;
+        if (b.y < -20) b.y = H + Math.random() * 80;
+      });
+
+      const scrollSpeed = 3.4 * dt;
+      state.obstacles.forEach((o) => {
+        o.x -= scrollSpeed;
+        if (!o.passed && o.x + o.w < state.turtle.x) {
+          o.passed = true;
+          state.score += 1;
+          best = Math.max(best, state.score);
+          updateScore();
+        }
+
+        if (
+          collideCircleRect(state.turtle.x, state.turtle.y, state.turtle.r, o.x, ceilingY, o.w, o.topH) ||
+          collideCircleRect(state.turtle.x, state.turtle.y, state.turtle.r, o.x, o.bottomY, o.w, o.bottomH)
+        ) {
+          state.gameOver = true;
+          state.running = false;
+        }
+      });
+
+      if (state.distance > 3000) state.shark.active = true;
+
+      if (state.shark.active) {
+        state.shark.x -= state.shark.speed * dt;
+        state.shark.bob += 0.05 * dt;
+        state.shark.y = H * 0.58 + Math.sin(state.shark.bob) * 36;
+
+        if (state.shark.x + state.shark.w < -120) state.shark.x = W + 180;
+
+        if (collideCircleRect(state.turtle.x, state.turtle.y, state.turtle.r, state.shark.x, state.shark.y, state.shark.w, state.shark.h)) {
+          state.gameOver = true;
+          state.running = false;
+        }
+      }
+
+      if (state.turtle.y - state.turtle.r < ceilingY || state.turtle.y + state.turtle.r > floorY) {
+        state.gameOver = true;
+        state.running = false;
+      }
+
+      if (state.distance >= state.finishDistance) {
+        state.won = true;
+        state.running = false;
+        best = Math.max(best, state.score);
+        updateScore();
+      }
+    }
+
+    function roundRect(x, y, w, h, r) {
+      ctx.beginPath();
+      ctx.moveTo(x + r, y);
+      ctx.arcTo(x + w, y, x + w, y + h, r);
+      ctx.arcTo(x + w, y + h, x, y + h, r);
+      ctx.arcTo(x, y + h, x, y, r);
+      ctx.arcTo(x, y, x + w, y, r);
+      ctx.closePath();
+    }
+
+    function drawSeaweed(x, y, h) {
+      ctx.strokeStyle = '#168b63';
+      ctx.lineWidth = 10;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.quadraticCurveTo(x - 12, y - h * 0.45, x + 2, y - h);
+      ctx.stroke();
+      ctx.beginPath();
+      ctx.moveTo(x + 18, y);
+      ctx.quadraticCurveTo(x + 26, y - h * 0.42, x + 10, y - h * 0.92);
+      ctx.stroke();
+    }
+
+    function drawBackground() {
+      const g = ctx.createLinearGradient(0, 0, 0, H);
+      g.addColorStop(0, '#a4eef2');
+      g.addColorStop(0.45, '#53cee0');
+      g.addColorStop(1, '#117e99');
+      ctx.fillStyle = g;
+      ctx.fillRect(0, 0, W, H);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.22)';
+      for (let i = 0; i < 3; i++) {
+        ctx.beginPath();
+        ctx.ellipse(140 + i * 250, 80 + i * 36, 120, 24, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      for (const b of state.bubbles) {
+        ctx.strokeStyle = 'rgba(255,255,255,0.55)';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+        ctx.stroke();
+      }
+
+      ctx.fillStyle = '#0d6b84';
+      ctx.fillRect(0, floorY, W, H - floorY);
+      ctx.fillStyle = '#f0deb3';
+      ctx.fillRect(0, floorY + 10, W, H - floorY);
+
+      drawSeaweed(50, floorY + 10, 78);
+      drawSeaweed(95, floorY + 10, 110);
+      drawSeaweed(W - 95, floorY + 10, 92);
+      drawSeaweed(W - 55, floorY + 10, 122);
+
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.font = '800 24px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+      ctx.fillText('Sandy Point', 24, 42);
+
+      const progress = Math.min(1, state.distance / state.finishDistance);
+      ctx.fillStyle = 'rgba(255,255,255,0.26)';
+      roundRect(24, 54, 220, 12, 999);
+      ctx.fill();
+      ctx.fillStyle = '#fff';
+      roundRect(24, 54, 220 * progress, 12, 999);
+      ctx.fill();
+    }
+
+    function drawObstacles() {
+      for (const o of state.obstacles) {
+        const topGrad = ctx.createLinearGradient(o.x, 0, o.x + o.w, 0);
+        topGrad.addColorStop(0, '#d8a46d');
+        topGrad.addColorStop(1, '#b9804b');
+        ctx.fillStyle = topGrad;
+        roundRect(o.x, ceilingY, o.w, o.topH, 20);
+        ctx.fill();
+        roundRect(o.x, o.bottomY, o.w, o.bottomH, 20);
+        ctx.fill();
+
+        ctx.fillStyle = '#1b8c67';
+        for (let i = 0; i < 4; i++) {
+          ctx.beginPath();
+          ctx.ellipse(o.x + 16 + i * 16, o.topH - 8, 7, 22, 0.2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.beginPath();
+          ctx.ellipse(o.x + 18 + i * 16, o.bottomY + 10, 7, 22, -0.2, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    function drawShark() {
+      if (!state.shark.active) return;
+      const s = state.shark;
+      ctx.save();
+      ctx.translate(s.x, s.y);
+      ctx.fillStyle = '#2d4c61';
+      roundRect(0, 0, s.w, s.h, 999);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(38, 0);
+      ctx.lineTo(56, -20);
+      ctx.lineTo(66, 0);
+      ctx.closePath();
+      ctx.fill();
+      ctx.beginPath();
+      ctx.moveTo(0, s.h / 2);
+      ctx.lineTo(-22, 0);
+      ctx.lineTo(-22, s.h);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = 'white';
+      ctx.beginPath();
+      ctx.arc(86, 12, 4, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawTurtle() {
+      const t = state.turtle;
+      ctx.save();
+      ctx.translate(t.x, t.y);
+      ctx.rotate(t.angle);
+      const w = 118;
+      const h = 68;
+      if (turtleImg.complete) {
+        ctx.drawImage(turtleImg, -w / 2, -h / 2, w, h);
+      } else {
+        ctx.fillStyle = '#5b8192';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 44, 24, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+
+    function drawHUD() {
+      ctx.fillStyle = 'rgba(255,255,255,0.88)';
+      roundRect(W - 150, 18, 126, 52, 18);
+      ctx.fill();
+      ctx.fillStyle = '#0f1720';
+      ctx.font = '700 14px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+      ctx.fillText('Score', W - 126, 38);
+      ctx.font = '800 24px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+      ctx.fillText(String(state.score), W - 126, 60);
+    }
+
+    function drawFinishMarker() {
+      const remaining = state.finishDistance - state.distance;
+      const x = W - 40 + remaining * 0.22;
+      if (x < W + 80) {
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(x, 100, 8, floorY - 140);
+        for (let i = 0; i < 8; i++) {
+          ctx.fillStyle = i % 2 === 0 ? '#ff7a59' : '#0f1720';
+          ctx.fillRect(x + 8, 100 + i * 40, 30, 20);
+          ctx.fillRect(x + 38, 120 + i * 40, 30, 20);
+        }
+      }
+    }
+
+    function drawOverlay() {
+      if (state.running && !state.gameOver && !state.won) return;
+      ctx.fillStyle = state.won ? 'rgba(10, 80, 56, 0.22)' : 'rgba(15, 23, 32, 0.28)';
+      ctx.fillRect(0, 0, W, H);
+      ctx.fillStyle = 'rgba(255,255,255,0.94)';
+      roundRect(W / 2 - 180, H / 2 - 90, 360, 180, 24);
+      ctx.fill();
+      ctx.fillStyle = '#0f1720';
+      ctx.textAlign = 'center';
+      ctx.font = '800 34px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+      if (!state.running && !state.gameOver && !state.won) {
+        ctx.fillText('Ready to swim?', W / 2, H / 2 - 20);
+        ctx.font = '600 18px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+        ctx.fillText('Press space or click to begin', W / 2, H / 2 + 18);
+      } else if (state.gameOver) {
+        ctx.fillText('Run over', W / 2, H / 2 - 20);
+        ctx.font = '600 18px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+        ctx.fillText('Try again and make it to the finish marker', W / 2, H / 2 + 18);
+      } else if (state.won) {
+        ctx.fillText('Level complete!', W / 2, H / 2 - 20);
+        ctx.font = '600 18px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+        ctx.fillText('You made it through Sandy Point', W / 2, H / 2 + 18);
+      }
+      ctx.textAlign = 'left';
+    }
+
+    function render() {
+      drawBackground();
+      drawFinishMarker();
+      drawObstacles();
+      drawShark();
+      drawTurtle();
+      drawHUD();
+      drawOverlay();
+    }
+
+    function frame(ts) {
+      if (!lastTime) lastTime = ts;
+      const dt = Math.min(1.6, (ts - lastTime) / 16.6667);
+      lastTime = ts;
+      update(dt);
+      render();
+      requestAnimationFrame(frame);
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        flap();
+      }
+      if (e.code === 'KeyP') {
+        paused = !paused;
+        pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+      }
+    });
+
+    canvas.addEventListener('pointerdown', flap);
+    startBtn.addEventListener('click', startGame);
+    pauseBtn.addEventListener('click', () => {
+      paused = !paused;
+      pauseBtn.textContent = paused ? 'Resume' : 'Pause';
+    });
+
+    resetGame();
+    requestAnimationFrame(frame);
+  </script>
+</body>
+</html>
