@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>USVI Life — Your guide to island life</title>
+<meta name="description" content="Authentic USVI stories, practical guides, local inspiration, and saved offline reading — free with no account required.">
+<link rel="canonical" href="https://www.taplabs.cloud/usvi-life">
+<meta name="theme-color" content="#F6F1E6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#131419" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:title" content="USVI Life — Your guide to island life">
+<meta property="og:description" content="Authentic USVI stories, practical guides, local inspiration, and offline reading — free with no account required.">
+<meta property="og:url" content="https://www.taplabs.cloud/usvi-life">
+<meta property="og:image" content="https://www.taplabs.cloud/usvi-life/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="631">
+<meta property="og:image:alt" content="USVI Life — Your guide to island life">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="USVI Life — Your guide to island life">
+<meta name="twitter:description" content="Authentic USVI stories, practical guides, local inspiration, and offline reading.">
+<meta name="twitter:image" content="https://www.taplabs.cloud/usvi-life/og.png">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="app-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F6F1E6; --cream-2:#EEE7D5;
+    --ink:#16171A; --ink-muted:rgba(22,23,26,.62);
+    --line:rgba(22,23,26,.16); --line-strong:rgba(22,23,26,.30);
+    --peri:#BEC0F3; --peri-2:#D6D7F8; --peri-deep:#4A4DBF;
+    --blue:#65B5E7;
+    --ul-navy:#07162F; --ul-navy-2:#10284C; --ul-pink:#F0008B; --ul-pink-dark:#C70070;
+    --surface:#FFFFFF;
+    --display:'Manrope',sans-serif; --body:'Manrope',sans-serif; --mono:'IBM Plex Mono',monospace;
+    --container:1160px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:var(--body);-webkit-font-smoothing:antialiased;}
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--ul-pink);color:#fff;}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--ul-pink-dark);outline-offset:3px;border-radius:2px;}
+  .wrap{max-width:var(--container);margin:0 auto;padding:0 32px;}
+  .eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-muted);}
+  .section-num{font-family:var(--mono);font-size:11.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--ul-pink-dark);display:block;margin-bottom:16px;}
+
+  /* ---------- SUB-NAV ---------- */
+  .subnav{position:sticky;top:0;z-index:50;background:rgba(246,241,230,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);}
+  .subnav-inner{max-width:var(--container);margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  .brand-crumb{display:flex;align-items:center;gap:11px;min-width:0;}
+  .tl-mark{display:flex;align-items:center;gap:8px;flex:none;}
+  .tl-mark-badge{width:24px;height:24px;border-radius:7px;border:1.4px solid var(--ink);display:flex;align-items:center;justify-content:center;background:var(--surface);flex:none;}
+  .tl-mark-badge svg{width:16px;height:16px;}
+  .tl-mark-word{font-family:var(--display);font-weight:800;font-size:14px;color:var(--ink-muted);}
+  .crumb-divider{width:1px;height:18px;background:var(--line-strong);flex:none;}
+  .app-crumb{display:flex;align-items:center;gap:9px;min-width:0;}
+  .app-crumb img{width:26px;height:26px;border-radius:50%;flex:none;}
+  .app-crumb span{font-family:var(--display);font-weight:800;font-size:15px;letter-spacing:-.005em;white-space:nowrap;}
+  .subnav-links{display:flex;align-items:center;gap:22px;font-size:13.5px;font-weight:600;color:var(--ink-muted);flex-wrap:wrap;}
+  .subnav-links a:not(.nav-cta):hover{color:var(--ink);}
+  .nav-cta{font-family:var(--body);font-size:13px;font-weight:700;padding:9px 18px;border-radius:20px;background:var(--ul-pink);color:#fff;transition:background .15s ease,transform .15s ease;}
+  .nav-cta:hover{background:var(--ul-pink-dark);transform:translateY(-1px);}
+  @media (max-width:760px){.subnav-links a:not(.nav-cta){display:none;}}
+
+  .btn{font-family:var(--body);font-size:14px;font-weight:700;padding:14px 24px;border-radius:26px;display:inline-flex;align-items:center;gap:8px;transition:transform .15s ease,background .15s ease,border-color .15s ease;}
+  .btn-primary{background:var(--ul-pink);color:#fff;}
+  .btn-primary:hover{background:var(--ul-pink-dark);transform:translateY(-1px);}
+  .btn-secondary{border:1.5px solid var(--ink);color:var(--ink);}
+  .btn-secondary:hover{background:var(--ink);color:var(--cream);}
+
+  /* ---------- HERO ---------- */
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:64px 0 0;overflow:hidden;}
+  .hero-copy{padding-bottom:56px;}
+  .hero-pill{display:inline-flex;padding:8px 14px;border-radius:999px;background:rgba(240,0,139,.1);border:1px solid rgba(240,0,139,.25);color:var(--ul-pink-dark);font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+  .hero h1{max-width:560px;margin:22px 0 18px;font-family:var(--display);font-weight:800;font-size:clamp(42px,6vw,68px);line-height:.98;letter-spacing:-.03em;}
+  .hero h1 em{color:var(--ul-pink);font-style:normal;}
+  .hero-copy>p.lead{max-width:480px;margin:0;color:var(--ink-muted);font-size:17px;line-height:1.6;}
+  .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px;}
+  .hero-note{display:flex;align-items:center;gap:9px;margin-top:22px;font-size:13px;color:var(--ink-muted);}
+  .hero-note strong{color:var(--ink);}
+  .hero-visual{position:relative;display:flex;align-items:flex-end;justify-content:center;min-height:520px;overflow:hidden;}
+  .pink-orbit{position:absolute;width:340px;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 38% 35%,#ff68bd,var(--ul-pink) 58%,#a50062);opacity:.9;}
+  .hero-visual img{position:relative;z-index:2;width:min(100%,320px);filter:drop-shadow(0 24px 35px rgba(7,22,47,.2));}
+  @media (max-width:900px){.hero{grid-template-columns:1fr;text-align:center;padding:48px 0 0;}.hero-copy{padding-bottom:0;}.hero h1,.hero-copy>p.lead{margin-left:auto;margin-right:auto;}.hero-actions,.hero-note{justify-content:center;}.hero-visual{min-height:420px;margin-top:20px;}}
+
+  /* ---------- STATEMENT (dark) ---------- */
+  .statement{padding:90px 0;text-align:center;background:var(--ul-navy);color:#fff;}
+  .statement .section-num{color:var(--ul-pink);}
+  .statement h2{max-width:840px;margin:0 auto;font-family:var(--display);font-weight:800;font-size:clamp(32px,4.4vw,54px);line-height:1.08;letter-spacing:-.02em;}
+  .statement h2 span{color:#ff4db3;}
+  .statement p{max-width:640px;margin:24px auto 0;color:#b9c4d5;font-size:16.5px;line-height:1.65;}
+
+  /* ---------- SECTION SHELL ---------- */
+  .section{padding:80px 0;}
+  .feature-intro{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;padding:80px 0 40px;}
+  .feature-intro h2{margin:0;font-family:var(--display);font-weight:800;font-size:clamp(28px,3.6vw,42px);line-height:1.1;letter-spacing:-.02em;}
+  .feature-intro>p{align-self:end;margin:0;color:var(--ink-muted);font-size:16px;line-height:1.65;}
+  @media (max-width:860px){.feature-intro{grid-template-columns:1fr;gap:20px;}}
+
+  /* ---------- SHOWCASE ---------- */
+  .showcase{background:linear-gradient(135deg,#FDE6F2,#FFF7FB 56%,#fff);border:1.5px solid var(--ink);border-radius:24px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;align-items:stretch;}
+  .showcase-copy{align-self:center;padding:50px;}
+  .tag-pill{display:inline-flex;padding:7px 12px;border-radius:999px;background:rgba(240,0,139,.1);color:var(--ul-pink-dark);font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;}
+  .tag-pill.light{background:rgba(255,255,255,.16);color:#ff9ad2;}
+  .showcase-copy h2{margin:18px 0;font-family:var(--display);font-weight:800;font-size:clamp(26px,3.2vw,36px);line-height:1.05;letter-spacing:-.02em;}
+  .showcase-copy p{color:var(--ink-muted);font-size:15.5px;line-height:1.65;margin:0 0 20px;}
+  .check-list{display:grid;gap:11px;margin:0;padding:0;list-style:none;color:var(--ink);font-size:14.5px;}
+  .check-list li{display:flex;align-items:flex-start;gap:10px;}
+  .check-list li::before{content:'';flex:none;width:20px;height:20px;margin-top:1px;border-radius:50%;background:var(--ul-pink);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5 10l3.2 3.2L15 6' fill='none' stroke='%23fff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;}
+  .showcase-device{display:flex;align-items:flex-end;justify-content:center;overflow:hidden;padding-top:30px;}
+  .showcase-device img{width:min(86%,340px);}
+  @media (max-width:860px){.showcase{grid-template-columns:1fr;}.showcase-copy{padding:36px;}}
+
+  /* ---------- SPLIT SHOWCASE ---------- */
+  .split-showcase{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .tall-card{border-radius:22px;overflow:hidden;display:flex;flex-direction:column;}
+  .navy-card{background:linear-gradient(155deg,var(--ul-navy-2),var(--ul-navy));color:#fff;}
+  .white-card{background:var(--surface);border:1.5px solid var(--ink);}
+  .card-copy{padding:34px 34px 0;}
+  .card-copy h3{margin:14px 0 10px;font-family:var(--display);font-weight:800;font-size:clamp(22px,2.6vw,28px);letter-spacing:-.015em;line-height:1.1;}
+  .navy-card .card-copy p{color:#bdc9db;}
+  .card-copy p{color:var(--ink-muted);font-size:14.5px;line-height:1.6;margin:0;}
+  .tall-device{display:flex;justify-content:center;margin-top:20px;}
+  .tall-device img{width:min(78%,260px);}
+  @media (max-width:860px){.split-showcase{grid-template-columns:1fr;}}
+
+  /* ---------- FEATURE GRID ---------- */
+  .feature-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;}
+  .mini-card{background:var(--surface);padding:28px;}
+  .feature-icon{width:40px;height:40px;border-radius:11px;background:rgba(240,0,139,.1);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+  .feature-icon svg{width:19px;height:19px;stroke:var(--ul-pink-dark);fill:none;}
+  .mini-card h3{margin:0 0 8px;font-family:var(--display);font-weight:700;font-size:16.5px;letter-spacing:-.005em;}
+  .mini-card p{margin:0;color:var(--ink-muted);font-size:14px;line-height:1.6;}
+  @media (max-width:760px){.feature-grid{grid-template-columns:1fr;}}
+
+  /* ---------- SAVE SECTION ---------- */
+  .save-section{display:grid;grid-template-columns:.8fr 1.2fr;gap:40px;align-items:center;}
+  .save-heading p{color:var(--ink-muted);font-size:16px;line-height:1.7;margin:0;}
+  .save-visuals{position:relative;min-height:480px;}
+  .save-phone{position:absolute;width:230px;border-radius:34px;overflow:hidden;box-shadow:0 26px 50px rgba(7,22,47,.2);border:6px solid #0E0F11;background:#0E0F11;}
+  .save-phone img{display:block;width:100%;}
+  .save-phone-left{left:2%;top:20px;transform:rotate(-5deg);}
+  .save-phone-right{right:2%;top:0;z-index:2;transform:rotate(4deg);}
+  .floating-note{position:absolute;left:6%;bottom:20px;z-index:4;display:flex;flex-direction:column;gap:2px;padding:14px 18px;border:1.5px solid var(--ink);border-radius:14px;background:var(--surface);box-shadow:0 14px 30px rgba(7,22,47,.15);}
+  .floating-note strong{font-size:13.5px;font-family:var(--display);}
+  .floating-note span{color:var(--ink-muted);font-size:11.5px;}
+  @media (max-width:860px){.save-section{grid-template-columns:1fr;}.save-visuals{min-height:420px;}.save-phone{width:170px;}}
+
+  /* ---------- LOCAL SECTION ---------- */
+  .local-section{display:grid;grid-template-columns:.95fr 1.05fr;gap:50px;align-items:center;}
+  .local-device{display:flex;justify-content:center;}
+  .local-device img{width:min(90%,320px);filter:drop-shadow(0 26px 40px rgba(7,22,47,.18));}
+  .local-copy p{color:var(--ink-muted);font-size:16px;line-height:1.65;margin:0;}
+  .local-copy blockquote{margin:26px 0 0;padding:16px 0 16px 22px;border-left:3px solid var(--ul-pink);font-family:var(--display);font-size:18px;font-weight:600;line-height:1.45;letter-spacing:-.01em;}
+  @media (max-width:860px){.local-section{grid-template-columns:1fr;text-align:center;}.local-copy blockquote{text-align:left;}}
+
+  /* ---------- WIDGET SECTION (dark) ---------- */
+  .widget-section{background:linear-gradient(140deg,var(--ul-navy-2),var(--ul-navy));color:#fff;border-radius:24px;display:grid;grid-template-columns:.85fr 1.15fr;gap:30px;align-items:center;overflow:hidden;}
+  .widget-copy{padding:50px 0 50px 50px;}
+  .widget-copy h2{margin:16px 0;font-family:var(--display);font-weight:800;font-size:clamp(28px,3.6vw,40px);line-height:1.05;letter-spacing:-.02em;}
+  .widget-copy p{color:#bac7da;font-size:15.5px;line-height:1.6;margin:0;}
+  .widget-device{display:flex;justify-content:center;padding:20px 20px 0;}
+  .widget-device img{width:min(88%,300px);}
+  @media (max-width:860px){.widget-section{grid-template-columns:1fr;text-align:center;}.widget-copy{padding:44px 30px 10px;}}
+
+  /* ---------- HOW SECTION ---------- */
+  .how-section{display:grid;grid-template-columns:.8fr 1.2fr;gap:60px;}
+  .how-heading p{color:var(--ink-muted);font-size:15.5px;line-height:1.65;margin:0;}
+  .steps{margin:0;padding:0;list-style:none;}
+  .steps li{display:grid;grid-template-columns:46px 1fr;gap:18px;padding:28px 0;border-bottom:1px solid var(--line);}
+  .steps li:first-child{padding-top:0;}
+  .steps li:last-child{border-bottom:none;}
+  .steps>li>span{display:flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:50%;background:var(--ul-navy);color:#fff;font-weight:800;font-family:var(--display);}
+  .steps h3{margin:2px 0 6px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.01em;}
+  .steps p{margin:0;color:var(--ink-muted);font-size:14.5px;line-height:1.6;}
+  @media (max-width:860px){.how-section{grid-template-columns:1fr;gap:24px;}}
+
+  /* ---------- DOWNLOAD ---------- */
+  .download-section{position:relative;isolation:isolate;padding:80px 32px;text-align:center;overflow:hidden;background:var(--ul-pink);color:#fff;border-radius:24px;}
+  .download-glow{position:absolute;z-index:-1;border-radius:50%;filter:blur(6px);}
+  .glow-one{width:360px;height:360px;left:-100px;top:-160px;background:#ff79c6;opacity:.5;}
+  .glow-two{width:420px;height:420px;right:-140px;bottom:-260px;background:#8d0052;opacity:.45;}
+  .download-icon{width:76px;height:76px;margin:0 auto 20px;border-radius:20px;box-shadow:0 20px 42px rgba(83,0,44,.25);}
+  .dl-eyebrow{display:inline-flex;padding:7px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.3);background:rgba(6,22,47,.15);color:#fff;font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;}
+  .download-section h2{max-width:600px;margin:20px auto 14px;font-family:var(--display);font-weight:800;font-size:clamp(30px,4.4vw,48px);line-height:1.02;letter-spacing:-.02em;}
+  .download-section>p{max-width:480px;margin:0 auto 26px;color:#ffe1f2;font-size:16px;line-height:1.6;}
+  .store-button{display:inline-flex;align-items:center;gap:10px;padding:12px 20px;border-radius:14px;background:#fff;color:var(--ul-navy);box-shadow:0 16px 35px rgba(83,0,44,.24);font-size:16px;font-weight:800;text-align:left;}
+  .store-button small{display:block;font-size:9.5px;font-weight:600;color:var(--ink-muted);}
+  .store-dot{width:9px;height:9px;border-radius:50%;background:var(--ul-pink);flex:none;}
+  .download-notes{display:flex;justify-content:center;flex-wrap:wrap;gap:18px;margin-top:26px;color:#ffe1f2;font-size:12.5px;}
+
+  /* ---------- FAQ ---------- */
+  .faq-section{display:grid;grid-template-columns:.75fr 1.25fr;gap:50px;}
+  .faq-heading p{color:var(--ink-muted);font-size:15.5px;line-height:1.6;margin:0;}
+  .faq-list{border-top:1px solid var(--line);}
+  .faq-list details{border-bottom:1px solid var(--line);}
+  .faq-list summary{display:flex;justify-content:space-between;gap:20px;padding:22px 0;cursor:pointer;font-family:var(--display);font-size:16.5px;font-weight:700;list-style:none;}
+  .faq-list summary::-webkit-details-marker{display:none;}
+  .faq-list summary .plus{color:var(--ul-pink);font-size:22px;font-weight:400;transition:transform .2s ease;flex:none;}
+  .faq-list details[open] summary .plus{transform:rotate(45deg);}
+  .faq-list details p{margin:-6px 40px 22px 0;color:var(--ink-muted);line-height:1.65;font-size:14.5px;}
+  @media (max-width:860px){.faq-section{grid-template-columns:1fr;gap:20px;}}
+
+  /* ---------- FOOTER ---------- */
+  .site-footer{background:var(--ul-navy);color:#fff;border-radius:24px;padding:44px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;}
+  .footer-brand{display:flex;align-items:center;gap:13px;}
+  .footer-brand img{width:44px;height:44px;border-radius:50%;flex:none;}
+  .footer-brand strong{display:block;font-family:var(--display);font-size:15px;}
+  .footer-brand span{color:#9ba9bd;font-size:12.5px;}
+  .footer-nav{display:flex;flex-wrap:wrap;gap:20px;font-size:13px;font-weight:600;}
+  .footer-nav a:hover{color:#ff67be;}
+  .footer-copy{grid-column:1/-1;margin:6px 0 0;padding-top:22px;border-top:1px solid rgba(255,255,255,.12);color:#9ba9bd;font-size:12.5px;}
+  @media (max-width:600px){.site-footer{grid-template-columns:1fr;text-align:center;padding:32px 24px;}.footer-brand{justify-content:center;}.footer-nav{justify-content:center;}}
+
+  .page-section{padding:0 32px;margin:0 auto 24px;max-width:var(--container);}
+  .page-section.first{margin-top:24px;}
+
+  @media (prefers-color-scheme: dark){
+    :root{
+      --cream:#131419;
+      --cream-2:#1B1C22;
+      --surface:#1F2027;
+      --ink:#F1EDE3;
+      --ink-muted:rgba(241,237,227,.62);
+      --line:rgba(241,237,227,.14);
+      --line-strong:rgba(241,237,227,.26);
+      --peri:#34375C;
+      --peri-2:#23253F;
+      --peri-deep:#A6A9F5;
+    }
+    ::selection{background:#A6A9F5;color:#131419;}
+    .subnav{background:rgba(19,20,25,.85);}
+    .section-num{color:#F27CBC;}
+    .hero-pill{color:#F27CBC;}
+    .tag-pill:not(.light){color:#F27CBC;}
+    .feature-icon svg{stroke:#F27CBC;}
+    .showcase{background:linear-gradient(135deg,#2B1420,#1F2027 60%,#1F2027);}
+    .statement,.widget-section,.site-footer{border:1px solid var(--line-strong);}
+  }
+</style>
+</head>
+<body>
+
+<nav class="subnav">
+  <div class="subnav-inner">
+    <div class="brand-crumb">
+      <a href="/" class="tl-mark" aria-label="taplabs home">
+        <div class="tl-mark-badge"><svg viewBox="0 0 30 30"><circle cx="15" cy="15" r="10.5" fill="none" stroke="var(--ink)" stroke-width="2"/><circle cx="15" cy="15" r="4.6" fill="var(--blue)"/></svg></div>
+        <span class="tl-mark-word">taplabs</span>
+      </a>
+      <div class="crumb-divider"></div>
+      <div class="app-crumb">
+        <img src="app-icon.png" alt="USVI Life icon">
+        <span>USVI Life</span>
+      </div>
+    </div>
+    <div class="subnav-links">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a class="nav-cta" href="#download">Get the app</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-section first" id="top">
+  <div class="hero">
+    <div class="hero-copy">
+      <span class="hero-pill">Made for island life</span>
+      <h1>Your guide to the <em>USVI.</em></h1>
+      <p class="lead">Authentic stories, practical guides, and local inspiration for residents, travelers, and anyone dreaming of island life.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#download">Download free</a>
+        <a class="btn btn-secondary" href="#features">Explore features ↓</a>
+      </div>
+      <div class="hero-note"><strong>Free to use</strong><span>•</span>No account required</div>
+    </div>
+    <div class="hero-visual" aria-label="USVI Life app preview">
+      <div class="pink-orbit"></div>
+      <img src="App-01.png" alt="USVI Life app showing island stories and a featured trail guide" loading="lazy">
+    </div>
+  </div>
+</header>
+
+<section class="statement">
+  <div class="wrap">
+    <span class="section-num">Your islands, closer</span>
+    <h2>Discover the USVI you <span>won’t find</span> in a brochure.</h2>
+    <p>From a favorite roadside stop to the trail locals recommend, USVI Life helps you find the places, people, and practical details that make the islands feel like home.</p>
+  </div>
+</section>
+
+<div class="page-section" id="features">
+  <div class="feature-intro">
+    <div>
+      <span class="section-num">01 / Discover</span>
+      <h2>A better way to know the islands.</h2>
+    </div>
+    <p>Open the app and find something worth reading, doing, tasting, or saving — without signing in or setting anything up.</p>
+  </div>
+</div>
+
+<div class="page-section">
+  <div class="showcase">
+    <div class="showcase-copy">
+      <span class="tag-pill">Fresh stories</span>
+      <h2>Local context. No tourist‑filter gloss.</h2>
+      <p>Explore authentic stories and practical guides built around the rhythm of island life. Browse the latest or jump into the topics that matter to you.</p>
+      <ul class="check-list">
+        <li>Food, culture, activities, and island living</li>
+        <li>Useful guides for visitors and residents</li>
+        <li>Fresh perspectives from across the USVI</li>
+      </ul>
+    </div>
+    <div class="showcase-device">
+      <img src="App-02.png" alt="USVI Life discover feed with stories and category filters" loading="lazy">
+    </div>
+  </div>
+</div>
+
+<div class="page-section">
+  <div class="split-showcase">
+    <article class="tall-card navy-card">
+      <div class="card-copy">
+        <span class="tag-pill light">Browse by interest</span>
+        <h3>Your kind of island day.</h3>
+        <p>Move from food and culture to activities, Caribbean stories, and practical island living with a tap.</p>
+      </div>
+      <div class="tall-device"><img src="App-03.png" alt="USVI Life Food and Dining category results" loading="lazy"></div>
+    </article>
+    <article class="tall-card white-card">
+      <div class="card-copy">
+        <span class="tag-pill">Smart search</span>
+        <h3>Find exactly what you need.</h3>
+        <p>Search local favorites, practical advice, and island guides when a question comes up.</p>
+      </div>
+      <div class="tall-device"><img src="App-04.png" alt="USVI Life search results for work spaces and local guides" loading="lazy"></div>
+    </article>
+  </div>
+</div>
+
+<div class="page-section">
+  <div class="feature-grid">
+    <article class="mini-card">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.2 5.8L20 11l-5.8 2.2L12 19l-2.2-5.8L4 11l5.8-2.2Z"/></svg></div>
+      <h3>Authentically local</h3>
+      <p>Useful stories rooted in real island life, not generic travel lists.</p>
+    </article>
+    <article class="mini-card">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><line x1="16" y1="16" x2="20.5" y2="20.5"/></svg></div>
+      <h3>Find it fast</h3>
+      <p>Search practical advice, local favorites, and island guides in seconds.</p>
+    </article>
+    <article class="mini-card">
+      <div class="feature-icon"><svg viewBox="0 0 24 24" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v13"/><path d="M6 13l6 6 6-6"/></svg></div>
+      <h3>Read anywhere</h3>
+      <p>Save the pieces you love and keep them handy for offline reading.</p>
+    </article>
+  </div>
+</div>
+
+<div class="page-section">
+  <div class="save-section">
+    <div class="save-heading">
+      <span class="section-num">02 / Save &amp; read</span>
+      <h2 style="font-family:var(--display);font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.05;letter-spacing:-.02em;margin:0 0 14px;">Good stories should travel with you.</h2>
+      <p>Save an article once. Come back to it from your personal library — even when the ferry, trail, or beach has other ideas about your signal.</p>
+    </div>
+    <div class="save-visuals">
+      <div class="save-phone save-phone-left"><img src="App-05.png" alt="A saved USVI Life article about beautiful views on St. Croix" loading="lazy"></div>
+      <!-- <div class="save-phone save-phone-right"><img src="App-06.png" alt="The USVI Life saved library available offline" loading="lazy"></div> -->
+      <div class="floating-note"><strong>Offline‑ready</strong><span>Saved on your device</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="page-section">
+  <div class="local-section">
+    <div class="local-device"><img src="App-07.png" alt="USVI Life feature story about Goat Hill Trail in St. Croix" loading="lazy"></div>
+    <div class="local-copy">
+      <span class="section-num">03 / Go deeper</span>
+      <h2 style="font-family:var(--display);font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.05;letter-spacing:-.02em;margin:0 0 14px;">Beyond the postcard.</h2>
+      <p>Discover local traditions, tucked‑away places, everyday island routines, and stories that make the USVI more than a beautiful backdrop.</p>
+      <blockquote>"The kind of useful local knowledge you usually only get after living here."</blockquote>
+    </div>
+  </div>
+</div>
+
+<div class="page-section">
+  <div class="widget-section">
+    <div class="widget-copy">
+      <span class="tag-pill light">Home Screen widget</span>
+      <h2>Island life, at a glance.</h2>
+      <p>See the latest USVI Life story right from your Home Screen. One glance, one tap, and you are back in the islands.</p>
+    </div>
+    <div class="widget-device"><img src="App-08.png" alt="USVI Life Home Screen widget showing the latest story" loading="lazy"></div>
+  </div>
+</div>
+
+<div class="page-section section" id="how">
+  <div class="how-section">
+    <div class="how-heading">
+      <span class="section-num">04 / How it works</span>
+      <h2 style="font-family:var(--display);font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.05;letter-spacing:-.02em;margin:0 0 14px;">Simple from the first tap.</h2>
+      <p>No profiles to complete. No feed to train. Just useful island knowledge when you want it.</p>
+    </div>
+    <ol class="steps">
+      <li><span>1</span><div><h3>Open &amp; explore</h3><p>Start with the latest stories or choose a category that fits your day.</p></div></li>
+      <li><span>2</span><div><h3>Search &amp; discover</h3><p>Find a practical answer, local favorite, hidden gem, or a little inspiration.</p></div></li>
+      <li><span>3</span><div><h3>Save &amp; take it along</h3><p>Keep favorites in your library for easy access, including offline.</p></div></li>
+    </ol>
+  </div>
+</div>
+
+<div class="page-section" id="download">
+  <div class="download-section">
+    <div class="download-glow glow-one"></div>
+    <div class="download-glow glow-two"></div>
+    <img class="download-icon" src="app-icon.png" alt="USVI Life app icon">
+    <span class="dl-eyebrow">Made for iPhone</span>
+    <h2>Keep the islands in your pocket.</h2>
+    <p>USVI Life is free, private by design, and ready whenever island inspiration strikes.</p>
+    <span class="store-button" aria-label="USVI Life App Store availability coming soon">
+      <span class="store-dot" aria-hidden="true"></span>
+      <span><small>Coming soon to the</small>App Store</span>
+    </span>
+    <div class="download-notes">
+      <span>✓ Free to use</span>
+      <span>✓ No account</span>
+      <span>✓ Offline reading</span>
+    </div>
+  </div>
+</div>
+
+<div class="page-section section" id="faq">
+  <div class="faq-section">
+    <div class="faq-heading">
+      <span class="section-num">Questions, answered</span>
+      <h2 style="font-family:var(--display);font-weight:800;font-size:clamp(26px,3.4vw,38px);line-height:1.05;letter-spacing:-.02em;margin:0 0 14px;">A little more about USVI Life.</h2>
+    </div>
+    <div class="faq-list">
+      <details open>
+        <summary>Is USVI Life free?<span class="plus" aria-hidden="true">+</span></summary>
+        <p>Yes. USVI Life is free to use, with no account required to browse, search, save stories, or explore local guides.</p>
+      </details>
+      <details>
+        <summary>Who is USVI Life for?<span class="plus" aria-hidden="true">+</span></summary>
+        <p>It is designed for residents, travelers, new arrivals, and anyone who wants a more authentic connection to life in the U.S. Virgin Islands.</p>
+      </details>
+      <details>
+        <summary>Can I read without an internet connection?<span class="plus" aria-hidden="true">+</span></summary>
+        <p>Yes. Save a story to your library and it remains ready when your signal is not.</p>
+      </details>
+      <details>
+        <summary>What kind of stories will I find?<span class="plus" aria-hidden="true">+</span></summary>
+        <p>Expect practical island guides, food and culture, activities, local traditions, hidden gems, and thoughtful stories about everyday life in the USVI.</p>
+      </details>
+      <details>
+        <summary>Do I need to create an account?<span class="plus" aria-hidden="true">+</span></summary>
+        <p>No. Open the app and start exploring. Your saved library stays on your device.</p>
+      </details>
+      <details>
+        <summary>Does the app have a Home Screen widget?<span class="plus" aria-hidden="true">+</span></summary>
+        <p>Yes. Add the USVI Life widget to see the latest story right from your iPhone Home Screen.</p>
+      </details>
+    </div>
+  </div>
+</div>
+
+<div class="page-section" style="margin-bottom:40px;">
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <img src="app-icon.png" alt="">
+      <div><strong>USVI Life</strong><span>Your guide to island life.</span></div>
+    </div>
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <a href="#features">Features</a>
+      <a href="#how">How it works</a>
+      <a href="#faq">FAQ</a>
+      <a href="#top">Back to top ↑</a>
+    </nav>
+    <p class="footer-copy">© 2026 USVI Life. Made with care in the U.S. Virgin Islands.</p>
+  </footer>
+</div>
+
+</body>
+</html>
