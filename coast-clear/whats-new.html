@@ -43,8 +43,11 @@
   .tl-mark-badge svg{width:16px;height:16px;}
   .tl-mark-word{font-family:var(--display);font-weight:800;font-size:14px;color:var(--ink-muted);}
   .crumb-divider{width:1px;height:18px;background:var(--line-strong);flex:none;}
-  .app-crumb{display:flex;align-items:center;gap:9px;min-width:0;text-decoration:none;}
-  .app-crumb svg{width:22px;height:23px;flex:none;}
+  /* .app-crumb{display:flex;align-items:center;gap:9px;min-width:0;} */
+  /* .app-crumb svg{width:22px;height:23px;flex:none;} */
+  /* .app-crumb span{font-family:var(--display);font-weight:700;font-size:15px;white-space:nowrap;} */ 
+  .app-crumb{display:flex;align-items:center;gap:9px;min-width:0;}
+  .app-crumb img{width:26px;height:26px;border-radius:7px;flex:none;}
   .app-crumb span{font-family:var(--display);font-weight:700;font-size:14px;color:var(--ink-muted);white-space:nowrap;}
   .subnav-links{display:flex;gap:20px;font-size:13.5px;font-weight:600;color:var(--ink-muted);flex-wrap:wrap;}
   .subnav-links a:hover,.subnav-links a[aria-current="page"]{color:var(--ink);}
@@ -159,14 +162,10 @@
         <span class="tl-mark-word">taplabs</span>
       </a>
       <div class="crumb-divider"></div>
-      <a class="app-crumb" href="index.html" aria-label="Coast Clear home">
-        <svg viewBox="0 0 200 210" aria-hidden="true">
-          <path d="M100 15 C130 55 150 110 165 195 L35 195 C50 110 70 55 100 15 Z" fill="#348B92"/>
-          <path d="M100 15 C115 45 125 80 128 120 C118 100 108 70 100 15 Z" fill="#002238" opacity="0.5"/>
-        </svg>
+      <div class="app-crumb">
+        <img src="app_icon.png" alt="Coast Clear icon">
         <span>Coast Clear</span>
-      </a>
-    </div>
+      </div>
     <div class="subnav-links">
       <a href="index.html">Home</a>
       <a href="whats-new.html" aria-current="page">What's New</a>
